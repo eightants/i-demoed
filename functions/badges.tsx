@@ -11,6 +11,7 @@ export function generateBadgeFromImage(url, x, y, badge_size) {
        <image width="300" height="300" xlink:href="${url}"></image>
     </pattern>
   </defs>
-  <polygon class="hex" points="150,300 280,225 280,75 150,0 20,75 20,225" fill="url('#image-bg')"></polygon>
+  <polygon class="hex" points="150,300 280,225 280,75 150,0 20,75 20,225" fill="#1e3354"></polygon>
+  <polygon class="hex" points="150,280 260,215 260,85 150,20 40,85 40,215" fill="url('#image-bg')"></polygon>
 </svg></g></g>`;
 }
