@@ -17,8 +17,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "remark": "^12.0.0",
-    "remark-html": "^12.0.0",
-    "svg-to-img": "^2.0.9"
+    "remark-html": "^12.0.0"
   },
   "devDependencies": {
     "@types/jsdom": "^16.2.5",
