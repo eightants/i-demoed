@@ -1,38 +1,66 @@
-import fs from "fs";
 import path from "path";
 import { drawBadge, generateBadgeFromImage } from "../../../functions/badges";
-import { calculateX, calculateY } from "../../../functions/common";
-import { BADGE_SIZE, PER_ROW } from "../../../functions/constants";
+import {
+  badgesFiles,
+  calculateX,
+  calculateY,
+  parseCustomEvents,
+  parseDevpostEvents,
+} from "../../../functions/common";
+import {
+  ALT_BADGES,
+  BADGE_SIZE,
+  DEVPOST_BADGES,
+  MAX_PER_ROW,
+} from "../../../functions/constants";
+import { NextApiRequest, NextApiResponse } from "next";
+import { getUsersHackathons } from "../../../functions/devpost";
 
-export default (req, res) => {
-  const dirRelativeToPublicFolder = "badges";
-  const dir = path.resolve("./public", dirRelativeToPublicFolder);
-  const filenames = fs.readdirSync(dir);
-  const images = Object.assign.apply(
-    null,
-    filenames.map((x) => ({ [x]: 0 }))
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const {
+    query: { events, username, pr = MAX_PER_ROW },
+  } = req;
+
+  const per_row = Number(pr);
+  const images = badgesFiles(DEVPOST_BADGES);
+  const customImages = badgesFiles(ALT_BADGES);
+
+  const devpostEvents = parseDevpostEvents(
+    !username || Array.isArray(username)
+      ? []
+      : await getUsersHackathons(username)
   );
+  const customEvents = parseCustomEvents(
+    !events || Array.isArray(events) ? [] : events.split(",")
+  );
+  const badges = [...devpostEvents, ...customEvents];
 
-  const events = req.query.events.split(",");
-
-  const svgWidth = (BADGE_SIZE + 2) * (PER_ROW + 1);
-  const svgHeight = (BADGE_SIZE + 2) * Math.ceil(events.length / PER_ROW);
+  const svgWidth = (BADGE_SIZE + 2) * (per_row + 1);
+  const svgHeight = (BADGE_SIZE + 2) * Math.ceil(badges.length / per_row);
   const svg =
     `<svg width="${svgWidth}" height="${svgHeight}"
   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">` +
-    events
-      .map((name, ind) =>
-        images.hasOwnProperty(`${name}.png`)
+    badges
+      .map((elem, ind) =>
+        images.hasOwnProperty(`${elem.filename}.png`) && !elem.alt
           ? drawBadge(
-              path.join("/", dirRelativeToPublicFolder, `${name}.png`),
-              calculateX(ind, PER_ROW, BADGE_SIZE),
-              calculateY(ind, PER_ROW, BADGE_SIZE),
+              path.join("/", DEVPOST_BADGES, `${elem.filename}.png`),
+              calculateX(ind, per_row, BADGE_SIZE),
+              calculateY(ind, per_row, BADGE_SIZE),
+              BADGE_SIZE
+            )
+          : elem.alt && customImages.hasOwnProperty(`${elem.filename}.png`)
+          ? drawBadge(
+              path.join("/", ALT_BADGES, `${elem.filename}.png`),
+              calculateX(ind, per_row, BADGE_SIZE),
+              calculateY(ind, per_row, BADGE_SIZE),
               BADGE_SIZE
             )
           : generateBadgeFromImage(
-              "https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/challenge_thumbnails/001/302/856/datas/medium.jpg",
-              calculateX(ind, PER_ROW, BADGE_SIZE),
-              calculateY(ind, PER_ROW, BADGE_SIZE),
+              elem.badgeImage,
+              ind,
+              calculateX(ind, per_row, BADGE_SIZE),
+              calculateY(ind, per_row, BADGE_SIZE),
               BADGE_SIZE
             )
       )
