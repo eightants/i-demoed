@@ -1,4 +1,6 @@
 import { loadImage } from "canvas";
+import fetch from "node-fetch";
+import { BASE64_PNG_ENCODE_STRING } from "./constants";
 
 export async function drawBadge(filename, ctx, x, y, badge_size) {
   const img = await loadImage(filename);
@@ -54,3 +56,39 @@ export async function generateBadgeFromImage(url, ctx, x, y, badge_size) {
   );
   ctx.restore();
 }
+
+export function drawSvgBadge(filename, x, y, badge_size) {
+  return `<image href="${
+    BASE64_PNG_ENCODE_STRING + filename
+  }" height="${badge_size}" width="${badge_size}" x="${x}" y="${y}"/>`;
+}
+
+const toDataURL = (url) =>
+  fetch(url)
+    .then((response) => response.buffer())
+    .then((buf) => buf.toString("base64"));
+
+export async function generateSvgBadgeFromImage(url, ind, x, y, badge_size) {
+  const img = await toDataURL(url);
+  return `<g transform="translate(${x},${y})"><g transform="scale(${
+    badge_size / 300
+  })"><svg id="image-fill" xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="300" preserveAspectRatio="true" xmlns:xlink="http://www.w3.org/1999/xlink"><defs>
+  <pattern id="image-bg-${ind}" x="20" y="20" height="300" width="300" patternUnits="userSpaceOnUse">
+    <image width="260" height="260" xlink:href="${
+      BASE64_PNG_ENCODE_STRING + img
+    }"></image>
+ </pattern>
+</defs>
+<polygon class="hex" points="150,300 280,225 280,75 150,0 20,75 20,225" fill="#333333"></polygon>
+<polygon class="hex" points="150,280 260,215 260,85 150,20 40,85 40,215" fill="url('#image-bg-${ind}')"></polygon>
+</svg></g></g>`;
+}
+
+export const buildSvgWall = (
+  svgWidth,
+  svgHeight,
+  generatedImages
+) => `<svg width="${svgWidth}" height="${svgHeight}"
+xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">${generatedImages.join(
+  ""
+)}</svg>`;

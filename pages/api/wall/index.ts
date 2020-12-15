@@ -1,18 +1,26 @@
 import path from "path";
 import fs from "fs";
 import { createCanvas } from "canvas";
-import { drawBadge, generateBadgeFromImage } from "../../../functions/badges";
+import {
+  buildSvgWall,
+  drawBadge,
+  drawSvgBadge,
+  generateBadgeFromImage,
+  generateSvgBadgeFromImage,
+} from "../../../functions/badges";
 import {
   calculateX,
   calculateY,
   parseCustomEvents,
   parseDevpostEvents,
+  svg2base64,
 } from "../../../functions/common";
 import {
   ALT_BADGES,
   BADGE_SIZE,
   DEVPOST_BADGES,
   MAX_PER_ROW,
+  WALL_MAX_AGE_SECONDS,
 } from "../../../functions/constants";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getUsersHackathons } from "../../../functions/devpost";
@@ -32,12 +40,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       size = BADGE_SIZE,
       level = "1",
       limit = "50",
+      type = "svg",
     },
   } = req;
 
   const per_row = Number(pr);
   const projectLevel = Number(level);
-  const badge_size = Math.floor(Number(size) / 10) * 10;
+  const badge_size =
+    type == "png" ? Math.floor(Number(size) / 10) * 10 : BADGE_SIZE;
   const badge_limit = Number(limit);
 
   const pathToBadges = path.join(process.cwd(), "public");
@@ -65,41 +75,83 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const promises = [];
   for (var ind = 0; ind < badges.length; ind++) {
     const elem = badges[ind];
-    images.hasOwnProperty(`${elem.filename}.png`) && !elem.alt
-      ? promises.push(
-          drawBadge(
-            fs.readFileSync(
-              path.join(pathToBadges, DEVPOST_BADGES, `${elem.filename}.png`)
-            ),
-            ctx,
-            calculateX(ind, per_row, badge_size),
-            calculateY(ind, per_row, badge_size),
-            badge_size
+    if (type == "png") {
+      images.hasOwnProperty(`${elem.filename}.png`) && !elem.alt
+        ? promises.push(
+            drawBadge(
+              fs.readFileSync(
+                path.join(pathToBadges, DEVPOST_BADGES, `${elem.filename}.png`)
+              ),
+              ctx,
+              calculateX(ind, per_row, badge_size),
+              calculateY(ind, per_row, badge_size),
+              badge_size
+            )
           )
-        )
-      : elem.alt && customImages.hasOwnProperty(`${elem.filename}.png`)
-      ? promises.push(
-          drawBadge(
-            fs.readFileSync(
-              path.join(pathToBadges, ALT_BADGES, `${elem.filename}.png`)
-            ),
-            ctx,
-            calculateX(ind, per_row, badge_size),
-            calculateY(ind, per_row, badge_size),
-            badge_size
+        : elem.alt && customImages.hasOwnProperty(`${elem.filename}.png`)
+        ? promises.push(
+            drawBadge(
+              fs.readFileSync(
+                path.join(pathToBadges, ALT_BADGES, `${elem.filename}.png`)
+              ),
+              ctx,
+              calculateX(ind, per_row, badge_size),
+              calculateY(ind, per_row, badge_size),
+              badge_size
+            )
           )
-        )
-      : promises.push(
-          generateBadgeFromImage(
-            elem.badgeImage,
-            ctx,
-            calculateX(ind, per_row, badge_size),
-            calculateY(ind, per_row, badge_size),
-            badge_size
+        : promises.push(
+            generateBadgeFromImage(
+              elem.badgeImage,
+              ctx,
+              calculateX(ind, per_row, badge_size),
+              calculateY(ind, per_row, badge_size),
+              badge_size
+            )
+          );
+    } else {
+      images.hasOwnProperty(`${elem.filename}.png`) && !elem.alt
+        ? promises.push(
+            drawSvgBadge(
+              fs.readFileSync(
+                path.join(pathToBadges, DEVPOST_BADGES, `${elem.filename}.png`),
+                "base64"
+              ),
+              calculateX(ind, per_row, badge_size),
+              calculateY(ind, per_row, badge_size),
+              badge_size
+            )
           )
-        );
+        : elem.alt && customImages.hasOwnProperty(`${elem.filename}.png`)
+        ? promises.push(
+            drawSvgBadge(
+              fs.readFileSync(
+                path.join(pathToBadges, ALT_BADGES, `${elem.filename}.png`),
+                "base64"
+              ),
+              calculateX(ind, per_row, badge_size),
+              calculateY(ind, per_row, badge_size),
+              badge_size
+            )
+          )
+        : promises.push(
+            generateSvgBadgeFromImage(
+              elem.badgeImage,
+              ind,
+              calculateX(ind, per_row, badge_size),
+              calculateY(ind, per_row, badge_size),
+              badge_size
+            )
+          );
+    }
   }
-  await Promise.all(promises);
-  res.setHeader("content-type", "image/png");
-  canvas.createPNGStream().pipe(res);
+  const generatedImages = await Promise.all(promises);
+  res.setHeader("cache-control", `max-age=${WALL_MAX_AGE_SECONDS}`);
+  if (type == "png") {
+    res.setHeader("content-type", "image/png");
+    canvas.createPNGStream().pipe(res);
+  } else {
+    res.setHeader("content-type", "image/svg+xml");
+    res.status(200).send(buildSvgWall(svgWidth, svgHeight, generatedImages));
+  }
 };
