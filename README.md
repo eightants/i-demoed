@@ -1,3 +1,3 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+### Hackathon Demo Badges
 
-![Test](https://demoed.vercel.app/api/wall?username=anthonyteo&events=howdyhack2019)
+![Demo](https://idemoed.vercel.app/api/wall?username=anthonyteo&events=howdyhack2019)
