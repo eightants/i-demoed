@@ -9,16 +9,19 @@
     "vercel-build": "yum install libuuid-devel libmount-devel && cp /lib64/{libuuid,libmount,libblkid}.so.1 node_modules/canvas/build/Release/ && npm run build"
   },
   "dependencies": {
+    "autoprefixer": "^10.1.0",
     "canvas": "^2.6.1",
     "date-fns": "^2.11.1",
     "gray-matter": "^4.0.2",
     "isomorphic-unfetch": "^3.1.0",
     "jsdom": "^16.4.0",
     "next": "^10.0.0",
+    "postcss": "^8.2.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "remark": "^12.0.0",
-    "remark-html": "^12.0.0"
+    "remark-html": "^12.0.0",
+    "tailwindcss": "^2.0.2"
   },
   "devDependencies": {
     "@types/jsdom": "^16.2.5",

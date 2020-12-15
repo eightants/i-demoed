@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -6,10 +10,16 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
+  font-weight: 400;
 }
 
 * {
   box-sizing: border-box;
+}
+
+h1 {
+  font-weight: 800;
+  letter-spacing: -0.05rem;
 }
 
 a {
@@ -24,4 +34,42 @@ a:hover {
 img {
   max-width: 100%;
   display: block;
+}
+
+.shimmer {
+  animation: k1 1.2s ease-in-out infinite;
+}
+
+@-webkit-keyframes k1 {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+@-moz-keyframes k1 {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+@keyframes k1 {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.8;
+  }
 }

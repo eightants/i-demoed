@@ -9,7 +9,7 @@ export function calculateY(ind, per_row, badge_size) {
   return 2 + Math.floor(ind / per_row) * (badge_size * 0.75 + 4);
 }
 
-export function parseDevpostEvents(events, level) {
+export function parseDevpostEvents(events, level, limit) {
   return events
     .map((elem) => ({
       ...elem,
@@ -22,7 +22,8 @@ export function parseDevpostEvents(events, level) {
         : level > 0
         ? elem.userSubmittedProject
         : true
-    );
+    )
+    .slice(0, limit);
 }
 
 export function parseCustomEvents(events) {
@@ -30,8 +31,4 @@ export function parseCustomEvents(events) {
     filename: elem.replace("hdb_", ""),
     alt: elem.split("_")[0] == "hdb",
   }));
-}
-
-export async function getBadgeImg(url) {
-  return await fetch(url)
 }
