@@ -23,7 +23,7 @@ export function parseDevpostEvents(events, level, limit) {
         ? elem.userSubmittedProject
         : true
     )
-    .slice(0, limit);
+    .slice(0, limit == -1 ? events.length : limit);
 }
 
 export function parseCustomEvents(events) {
@@ -34,5 +34,5 @@ export function parseCustomEvents(events) {
 }
 
 export function svg2base64(svg) {
-  return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`
+  return `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
 }

@@ -39,7 +39,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       pr = MAX_PER_ROW,
       size = BADGE_SIZE,
       level = "1",
-      limit = "50",
+      limit = "-1",
       type = "svg",
     },
   } = req;
@@ -67,7 +67,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const badges = [...devpostEvents, ...customEvents];
 
   const svgWidth = (badge_size + 2) * (per_row + 1);
-  const svgHeight = (badge_size + 2) * Math.ceil(badges.length / per_row);
+  const svgHeight = (badge_size) * Math.ceil(badges.length / per_row);
 
   const canvas = createCanvas(svgWidth, svgHeight);
   const ctx = canvas.getContext("2d");
