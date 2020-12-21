@@ -67,7 +67,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const badges = [...devpostEvents, ...customEvents];
 
   const svgWidth = (badge_size + 2) * (per_row + 1);
-  const svgHeight = (badge_size) * Math.ceil(badges.length / per_row);
+  const svgHeight =
+    badge_size +
+    ((badge_size * 4) / 5) * Math.ceil(badges.length / per_row - 1);
 
   const canvas = createCanvas(svgWidth, svgHeight);
   const ctx = canvas.getContext("2d");
