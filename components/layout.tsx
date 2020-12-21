@@ -1,30 +1,36 @@
 import Head from "next/head";
-import styles from "./layout.module.css";
-
-export const siteTitle = "Next.js Sample Website";
+import { DOMAIN, SITE_TITLE } from "../functions/constants";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
+        <title>{SITE_TITLE}</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta property="og:type" content="website" />
         <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="theme-color" content="#ffffff" />
         <meta
           name="description"
-          content="Showcase your role in the hackathon community"
+          content="Showcase your participation in the hackathon community. "
         />
-        <meta
-          property="og:image"
-          content={`https://og-image.now.sh/${encodeURI(
-            siteTitle
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
-        />
-        <meta name="og:title" content={siteTitle} />
+        <meta property="og:image" content="/images/idemoed.png" />
+        <meta name="og:title" content={SITE_TITLE} />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:url" content={DOMAIN} />
+        <meta
+          property="og:description"
+          content="Showcase your participation in the hackathon community. "
+        />
       </Head>
-      <header className="flex items-center flex-row justify-center">
-        <img className="h-10" src="/images/hexagon.svg"/>
-        <h1 className="mx-4 text-4xl">I Demoed</h1>
-      </header>
       <main>{children}</main>
     </div>
   );
