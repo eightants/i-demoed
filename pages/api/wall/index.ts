@@ -13,7 +13,6 @@ import {
   calculateY,
   parseCustomEvents,
   parseDevpostEvents,
-  svg2base64,
 } from "../../../functions/common";
 import {
   ALT_BADGES,
@@ -39,8 +38,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       pr = MAX_PER_ROW,
       size = BADGE_SIZE,
       level = "1",
-      limit = "-1",
+      limit = "100",
       type = "svg",
+      placeholder = "",
     },
   } = req;
 
@@ -102,6 +102,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               badge_size
             )
           )
+        : placeholder == "duck"
+        ? promises.push(
+            drawBadge(
+              fs.readFileSync(
+                path.join(pathToBadges, ALT_BADGES, "mlhduck.png")
+              ),
+              ctx,
+              calculateX(ind, per_row, badge_size),
+              calculateY(ind, per_row, badge_size),
+              badge_size
+            )
+          )
         : promises.push(
             generateBadgeFromImage(
               elem.badgeImage,
@@ -129,6 +141,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             drawSvgBadge(
               fs.readFileSync(
                 path.join(pathToBadges, ALT_BADGES, `${elem.filename}.png`),
+                "base64"
+              ),
+              calculateX(ind, per_row, badge_size),
+              calculateY(ind, per_row, badge_size),
+              badge_size
+            )
+          )
+        : placeholder == "duck"
+        ? promises.push(
+            drawSvgBadge(
+              fs.readFileSync(
+                path.join(pathToBadges, ALT_BADGES, "mlhduck.png"),
                 "base64"
               ),
               calculateX(ind, per_row, badge_size),

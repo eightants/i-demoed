@@ -58,7 +58,7 @@ export async function generateBadgeFromImage(url, ctx, x, y, badge_size) {
 }
 
 export function drawSvgBadge(filename, x, y, badge_size) {
-  return `<image href="${
+  return `<image href="${BASE64_PNG_ENCODE_STRING + filename}" xlink:href="${
     BASE64_PNG_ENCODE_STRING + filename
   }" height="${badge_size}" width="${badge_size}" x="${x}" y="${y}"/>`;
 }
@@ -74,9 +74,9 @@ export async function generateSvgBadgeFromImage(url, ind, x, y, badge_size) {
     badge_size / 300
   })"><svg id="image-fill" xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="300" preserveAspectRatio="true" xmlns:xlink="http://www.w3.org/1999/xlink"><defs>
   <pattern id="image-bg-${ind}" x="20" y="20" height="300" width="300" patternUnits="userSpaceOnUse">
-    <image width="260" height="260" xlink:href="${
+    <image width="260" height="260" href="${
       BASE64_PNG_ENCODE_STRING + img
-    }"></image>
+    }" xlink:href="${BASE64_PNG_ENCODE_STRING + img}"></image>
  </pattern>
 </defs>
 <polygon class="hex" points="150,300 280,225 280,75 150,0 20,75 20,225" fill="#333333"></polygon>
