@@ -114,7 +114,7 @@ export default function Home() {
           <div className="w-36 flex-none">limit</div>
           <p className="flex-grow">
             Integer representing the maximum number of hackathons to return for
-            a user. Default: -1. Only applies when the{" "}
+            a user. Default: 100. Only applies when the{" "}
             <CodeString>username</CodeString> parameter exists.
           </p>
         </div>
@@ -174,6 +174,15 @@ export default function Home() {
             100. Only applies when <CodeString>type</CodeString> is png.
           </p>
         </div>
+        <div className="py-2 flex sm:block">
+          <div className="w-36 flex-none">placeholder</div>
+          <p className="flex-grow">
+            Specifies what should be done if the sticker is not matched in the
+            repository. Default: Generates hexagon badge using the event's
+            Devpost image. If <CodeString>placeholder=duck</CodeString> it will
+            use the MLH duck demo sticker as the placeholder.
+          </p>
+        </div>
       </section>
       <section className="max-w-3xl mx-auto text-base sm:text-sm p-4">
         <h2 className="text-2xl leading-5 my-5 font-semibold">
@@ -189,8 +198,13 @@ export default function Home() {
             Devpost Hackathons
           </h3>
           <p className="mb-4">
-            If your hackathon is on Devpost, use this issue template to open an
-            issue with the following information.
+            If your hackathon is on Devpost,{" "}
+            <a href="https://github.com/eightants/i-demoed/issues">
+              visit the issue page
+            </a>{" "}
+            and select{" "}
+            <CodeString>{"New issue > Submit Devpost Badge"}</CodeString> with
+            the following information.
           </p>
           <ul className="px-6">
             <li>
@@ -216,11 +230,15 @@ export default function Home() {
           </h3>
           <p className="mb-4">
             If your hackathon does not use Devpost but would still like users to
-            showcase the badge, use this issue template to open an issue with
-            the following information. Badges added using this method will not
-            be automatically matched through devpost usernames and will need to
-            be manually specified in the <CodeString>events</CodeString>{" "}
-            parameter.
+            showcase the badge,{" "}
+            <a href="https://github.com/eightants/i-demoed/issues">
+              visit the issue page
+            </a>{" "}
+            and select{" "}
+            <CodeString>{"New issue > Submit Other Badge"}</CodeString> with the
+            following information. Badges added using this method will not be
+            automatically matched through devpost usernames and will need to be
+            manually specified in the <CodeString>events</CodeString> parameter.
           </p>
           <ul className="px-6">
             <li>
@@ -333,13 +351,15 @@ export default function Home() {
       </section>
       <section className="max-w-3xl mx-auto text-base sm:text-sm p-4 text-center">
         <a
-          className="hover:no-underline sm:w-full sm:mt-2 sm:mr-0 flex-none hover:border-gray-700 hover:text-gray-700 text-md text-gray-900 leading-6 font-semibold py-2 px-6 border border-gray-900 rounded focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none transition-colors duration-200"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:no-underline sm:w-full sm:mt-2 sm:mr-0 flex-none hover:border-gray-700 hover:text-gray-700 text-md text-gray-900 leading-6 font-semibold py-3 px-5 border border-gray-900 rounded focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-gray-900 focus:outline-none transition-colors duration-200"
           href={GITHUB_REPO}
         >
           Contribute on GitHub
         </a>
       </section>
-      <section className="p-8"></section>
+      <section className="p-10"></section>
     </Layout>
   );
 }

@@ -1,5 +1,5 @@
 export const MAX_PER_ROW = 5;
-export const BADGE_SIZE = 100;
+export const BADGE_SIZE = 80;
 export const WALL_MAX_AGE_SECONDS = 600;
 
 export const SITE_TITLE = "I Demoed: Hackathon Badge Showcase";
@@ -13,7 +13,7 @@ export const BASE64_PNG_ENCODE_STRING = "data:image/png;base64,";
 export const FULL_SERVICE_URL =
   DOMAIN +
   WALL_URL_ENDPOINT +
-  "<USERNAME>&limit=<LIMIT>&level=<LEVEL>&events=<EVENTS>&pr=<PR>&size=<SIZE>&type=<TYPE>";
+  "<USERNAME>&limit=<LIMIT>&level=<LEVEL>&events=<EVENTS>&pr=<PR>&size=<SIZE>&type=<TYPE>&placeholder=<PLACEHOLDER>";
 
 export const HACKATHONS_ENDPOINT_RES = [
   {
