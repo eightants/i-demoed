@@ -22,13 +22,28 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           name="description"
           content="Showcase your participation in the hackathon community. "
         />
-        <meta property="og:image" content="/images/idemoed.png" />
+        <meta property="og:image" content="/images/idemoed-badges.png" />
         <meta name="og:title" content={SITE_TITLE} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:url" content={DOMAIN} />
         <meta
           property="og:description"
           content="Showcase your participation in the hackathon community. "
+        />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-JM3JPFQJ27"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-JM3JPFQJ27');
+   `,
+          }}
         />
       </Head>
       <main>{children}</main>

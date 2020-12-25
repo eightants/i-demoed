@@ -17,7 +17,7 @@ export async function drawBadge(filename, ctx, x, y, badge_size) {
 function drawHexagon(ctx, x, y, badge_size, fill) {
   ctx.moveTo(x + badge_size * Math.cos(0), y + badge_size * Math.sin(0));
   ctx.beginPath();
-  for (var side = 0; side < 7; side++) {
+  for (let side = 0; side < 7; side++) {
     ctx.lineTo(
       x + badge_size * Math.cos((side * 2 * Math.PI) / 6 - Math.PI / 2),
       y + badge_size * Math.sin((side * 2 * Math.PI) / 6 - Math.PI / 2)

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export const CodeBlock = ({ children }: { children: string }) => (
   <div className="w-auto bg-gray-50 text-gray-500 font-mono leading-6 my-2 py-2 px-4 border border-gray-200 rounded items-center whitespace-normal text-sm sm:text-xs">
@@ -19,7 +20,7 @@ export const Dropdown = ({ id, options, label, setBadgeProps, badgeProps }) => (
       <select
         className="appearance-none bg-transparent py-2 pl-4 pr-14 z-10"
         value={badgeProps[id]}
-        onChange={(e: any) =>
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
           setBadgeProps({ ...badgeProps, [id]: e.target.value })
         }
       >
@@ -36,6 +37,14 @@ export const Dropdown = ({ id, options, label, setBadgeProps, badgeProps }) => (
   </label>
 );
 
+Dropdown.propTypes = {
+  id: PropTypes.string,
+  options: PropTypes.array,
+  label: PropTypes.string,
+  setBadgeProps: PropTypes.func,
+  badgeProps: PropTypes.object,
+};
+
 export const BadgeInput = ({ id, label, setBadgeProps, badgeProps }) => (
   <label className="flex items-center justify-between text-sm my-2">
     <div className="mr-6">{label}</div>
@@ -43,12 +52,19 @@ export const BadgeInput = ({ id, label, setBadgeProps, badgeProps }) => (
       className="border border-gray-200 rounded py-2 px-4 flex-none w-36"
       placeholder="#333333"
       value={badgeProps[id]}
-      onChange={(e: any) =>
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
         setBadgeProps({ ...badgeProps, [id]: e.target.value })
       }
     ></input>
   </label>
 );
+
+BadgeInput.propTypes = {
+  id: PropTypes.string,
+  label: PropTypes.string,
+  setBadgeProps: PropTypes.func,
+  badgeProps: PropTypes.object,
+};
 
 export const LogoUpload = ({ id, label, setBadgeProps, badgeProps }) => {
   const fileField = React.useRef<HTMLInputElement>(null);
@@ -74,6 +90,13 @@ export const LogoUpload = ({ id, label, setBadgeProps, badgeProps }) => {
       ></input>
     </label>
   );
+};
+
+LogoUpload.propTypes = {
+  id: PropTypes.string,
+  label: PropTypes.string,
+  setBadgeProps: PropTypes.func,
+  badgeProps: PropTypes.object,
 };
 
 const mlhText = () => (

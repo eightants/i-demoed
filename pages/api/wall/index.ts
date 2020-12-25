@@ -75,10 +75,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const ctx = canvas.getContext("2d");
 
   const promises = [];
-  for (var ind = 0; ind < badges.length; ind++) {
+  for (let ind = 0; ind < badges.length; ind++) {
     const elem = badges[ind];
     if (type == "png") {
-      images.hasOwnProperty(`${elem.filename}.png`) && !elem.alt
+      Object.prototype.hasOwnProperty.call(images, `${elem.filename}.png`) &&
+      !elem.alt
         ? promises.push(
             drawBadge(
               fs.readFileSync(
@@ -90,7 +91,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               badge_size
             )
           )
-        : elem.alt && customImages.hasOwnProperty(`${elem.filename}.png`)
+        : elem.alt &&
+          Object.prototype.hasOwnProperty.call(
+            customImages,
+            `${elem.filename}.png`
+          )
         ? promises.push(
             drawBadge(
               fs.readFileSync(
@@ -124,7 +129,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             )
           );
     } else {
-      images.hasOwnProperty(`${elem.filename}.png`) && !elem.alt
+      Object.prototype.hasOwnProperty.call(images, `${elem.filename}.png`) &&
+      !elem.alt
         ? promises.push(
             drawSvgBadge(
               fs.readFileSync(
@@ -136,7 +142,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               badge_size
             )
           )
-        : elem.alt && customImages.hasOwnProperty(`${elem.filename}.png`)
+        : elem.alt &&
+          Object.prototype.hasOwnProperty.call(
+            customImages,
+            `${elem.filename}.png`
+          )
         ? promises.push(
             drawSvgBadge(
               fs.readFileSync(

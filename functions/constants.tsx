@@ -53,6 +53,13 @@ export const BADGE19_DEFAULTS = {
   textColor: "#333333",
 };
 
+export interface BadgeParams {
+  id: string;
+  label: string;
+  options?: Array<string>;
+  inputType: string;
+}
+
 export const BADGE_TYPE_DEFAULTS = {
   id: "badgeType",
   label: "Badge Style",

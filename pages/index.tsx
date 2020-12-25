@@ -1,11 +1,10 @@
-import Head from "next/head";
 import Layout from "../components/layout";
-import { getSortedPostsData } from "../lib/posts";
 import { GetStaticProps } from "next";
 import { useRef, useState } from "react";
 import { createCanvas } from "canvas";
 import {
   BADGE19_DEFAULTS,
+  BadgeParams,
   BADGE_CUSTOM,
   DOMAIN,
   EVENT_METADATA,
@@ -26,8 +25,8 @@ import {
 } from "../components/shared";
 
 function drawInlineSVG(svgElement, ctx, callback) {
-  var svgURL = new XMLSerializer().serializeToString(svgElement);
-  var img = new Image();
+  const svgURL = new XMLSerializer().serializeToString(svgElement);
+  const img = new Image();
   img.onload = function () {
     ctx.drawImage(this, 0, 0);
     callback();
@@ -137,8 +136,8 @@ export default function Home() {
           <p className="flex-grow">
             Comma-separated list of event names to add to the wall. Names
             correlate to the name of the image file in{" "}
-            <CodeString>badges/</CodeString>. Add "hdb_" before the name of the
-            badge if referring to the <CodeString>badges/alt/</CodeString>{" "}
+            <CodeString>badges/</CodeString>. Add {'"hdb_"'} before the name of
+            the badge if referring to the <CodeString>badges/alt/</CodeString>{" "}
             directory.
             <br />
             <strong>Examples:</strong>
@@ -178,7 +177,7 @@ export default function Home() {
           <div className="w-36 flex-none">placeholder</div>
           <p className="flex-grow">
             Specifies what should be done if the sticker is not matched in the
-            repository. Default: Generates hexagon badge using the event's
+            repository. Default: Generates hexagon badge using the {"event's"}
             Devpost image. If <CodeString>placeholder=duck</CodeString> it will
             use the MLH duck demo sticker as the placeholder.
           </p>
@@ -269,13 +268,13 @@ export default function Home() {
           Badge Creator
         </h2>
         <p className="my-5">
-          Have an MLH event but don't have a sticker file? Use the template to
+          Have an MLH event but do not have a sticker file? Use the template to
           recreate the hexagon badge from your event. Then follow the steps
           above to add your badge to the repository.
         </p>
         <div className="flex sm:block">
           <div className="w-1/2 sm:w-full sm:mb-8">
-            {BADGE_CUSTOM.map((obj: any, ind: number) =>
+            {BADGE_CUSTOM.map((obj: BadgeParams, ind: number) =>
               obj.inputType === "dropdown" ? (
                 <Dropdown
                   key={ind}
@@ -365,10 +364,7 @@ export default function Home() {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData();
   return {
-    props: {
-      allPostsData,
-    },
+    props: {},
   };
 };
