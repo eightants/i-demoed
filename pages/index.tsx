@@ -1,5 +1,4 @@
 import Layout from "../components/layout";
-import { GetStaticProps } from "next";
 import { useRef, useState } from "react";
 import { createCanvas } from "canvas";
 import {
@@ -362,9 +361,3 @@ export default function Home() {
     </Layout>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: {},
-  };
-};

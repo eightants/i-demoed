@@ -48,14 +48,24 @@ Dropdown.propTypes = {
 export const BadgeInput = ({ id, label, setBadgeProps, badgeProps }) => (
   <label className="flex items-center justify-between text-sm my-2">
     <div className="mr-6">{label}</div>
-    <input
-      className="border border-gray-200 rounded py-2 px-4 flex-none w-36"
-      placeholder="#333333"
-      value={badgeProps[id]}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-        setBadgeProps({ ...badgeProps, [id]: e.target.value })
-      }
-    ></input>
+    <div className="border border-gray-200 rounded flex w-36 items-center justify-stretch">
+      <input
+        className="py-2 px-4 flex-initial w-9/12 pr-0"
+        placeholder="#333333"
+        value={badgeProps[id]}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setBadgeProps({ ...badgeProps, [id]: e.target.value })
+        }
+      />
+      <input
+        type="color"
+        className="flex-initial p-0 pr-4 bg-transparent"
+        value={badgeProps[id]}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setBadgeProps({ ...badgeProps, [id]: e.target.value })
+        }
+      />
+    </div>
   </label>
 );
 
