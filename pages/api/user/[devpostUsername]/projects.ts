@@ -9,5 +9,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!devpostUsername || Array.isArray(devpostUsername))
     return res.status(400).send("");
 
-  return res.json(await getUsersProjects(devpostUsername));
+  const userProjects = await getUsersProjects(devpostUsername);
+  
+  if (userProjects.error == 404) {
+    return res.status(404).send(`devpost user ${devpostUsername} not found.`)
+  }
+
+  return res.json(userProjects.projects);
 }

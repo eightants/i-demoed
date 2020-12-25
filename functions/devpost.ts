@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-unfetch';
 import { JSDOM } from 'jsdom';
 import { DevpostHackathon, DevpostProject } from "../interfaces";
+import { DevpostProjectResponse } from '../interfaces/DevpostProjectResponse';
 
 /**
  * Parses out the Devpost username from a given devpost profile url
@@ -24,8 +25,15 @@ export const getUsernameFromUrl = (devpostUrl: string) => {
  * Returns a list of hackathon projects a user has created 
  * @param devpostUsername Devpost user's username
  */
-export const getUsersProjects = async (devpostUsername: string) => {
+export const getUsersProjects = async (devpostUsername: string): Promise<DevpostProjectResponse> => {
   const res = await fetch(`https://devpost.com/${devpostUsername}`);
+  const projectsRes: DevpostProjectResponse = {projects: []};
+  
+  if (!res.ok) {
+    projectsRes.error = res.status;
+    return projectsRes;
+  }
+
   const projectPage = await res.text();
 
   const { document } = new JSDOM(projectPage).window;
@@ -41,8 +49,8 @@ export const getUsersProjects = async (devpostUsername: string) => {
       numLikes
     });
   });
-
-  return projects;
+  projectsRes.projects = projects;
+  return projectsRes;
 }
 
 /**
