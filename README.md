@@ -1,10 +1,10 @@
-<h2 align="center"><img src="public/images/idemoed-frame.png" width="500px" alt="I Demoed"></h2>
+<h3 align="center"><img src="public/images/idemoed-frame.png" width="500px" alt="I Demoed"></h3>
 
 [I Demoed](https://idemoed.vercel.app) is a hackathon badge showcase service in SVG and raster format, which can easily be included in GitHub readmes or any other webpage. The service supports badge generation from a user's Devpost activity and custom specified badges. With the prevalence of virtual hackathons, this service provides a way for the hackathon community to continue collecting the hexagon "I Demoed" stickers prominent in MLH events.
 
 ![Demo](https://idemoed.vercel.app/api/wall?username=anthonyteo)
 
-### Quickstart
+## Quickstart
 
 ```
 https://idemoed.vercel.app/api/wall?username=<USERNAME>&limit=<LIMIT>&level=<LEVEL>&events=<EVENTS>&pr=<PR>&size=<SIZE>&type=<TYPE>&placeholder=<PLACEHOLDER>
@@ -68,7 +68,7 @@ Make sure `id` only has lowercase letters, numbers and hyphens. Remove any optio
 
 Then make a pull request to this repo. Use the `devpost badge` label or `other badge` label as necessary. 
 
-### Development
+## Development
 
 1. Clone this repository
 2. Install packages with `npm i`
