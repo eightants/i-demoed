@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export const CodeBlock = ({ children }: { children: string }) => (
-  <div className="w-auto bg-gray-50 text-gray-500 font-mono leading-6 my-2 py-2 px-4 border border-gray-200 rounded items-center whitespace-normal text-sm sm:text-xs">
+  <div className="w-auto overflow-auto bg-gray-50 text-gray-500 font-mono leading-6 my-2 py-2 px-4 border border-gray-200 rounded items-center whitespace-normal text-sm sm:text-xs">
     {children}
   </div>
 );
