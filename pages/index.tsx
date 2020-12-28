@@ -357,12 +357,7 @@ export default function Home() {
           Contribute on GitHub
         </a>
       </section>
-      <section className="pt-10 pb-16 text-center">
-        <div className="flex flex-row items-center justify-center text-gray-500">
-          <p className="text-sm pr-2">Powered by</p>{" "}
-          <img className="w-5" src="/images/vercel.svg" />
-        </div>
-      </section>
+      <section className="pt-10 pb-16 text-center"></section>
     </Layout>
   );
 }
