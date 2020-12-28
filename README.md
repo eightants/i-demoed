@@ -68,9 +68,11 @@ Make sure `id` only has lowercase letters, numbers and hyphens. Remove any optio
 
 Then make a pull request to this repo. Use the `devpost badge` label or `other badge` label as necessary. 
 
-## Development
+### Development
 
 1. Clone this repository
 2. Install packages with `npm i`
 3. Start development server with `npm run build`
 4. Open pull request
+
+<img src="public/images/powered-by-vercel.svg" width="160px" alt="Powered by Vercel">
