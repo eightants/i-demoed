@@ -54,10 +54,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const images = badgesFiles(DEVPOST_BADGES);
   const customImages = badgesFiles(ALT_BADGES);
 
-  const devpostEvents = parseDevpostEvents(
+  const userHackathons =
     !username || Array.isArray(username)
-      ? []
-      : await getUsersHackathons(username),
+      ? { hackathons: [] }
+      : await getUsersHackathons(username);
+  if (!userHackathons.ok) {
+    let errorMessage: string;
+    switch (userHackathons.error) {
+      case 404:
+        errorMessage = `devpost user ${username} not found.`;
+        break;
+      default:
+        errorMessage = `ERROR ${userHackathons.error}! something went wrong getting projects for ${username}`;
+        break;
+    }
+    return res.status(userHackathons.error).send(errorMessage);
+  }
+  const devpostEvents = parseDevpostEvents(
+    userHackathons.hackathons,
     projectLevel,
     badge_limit
   );

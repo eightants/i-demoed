@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const userProjects = await getUsersProjects(devpostUsername);
 
-  if (userProjects.ok !== undefined && !userProjects.ok) {
+  if (!userProjects.ok) {
     let errorMessage: string;
     switch (userProjects.error) {
       case 404:

@@ -1,7 +1,8 @@
 import fetch from "isomorphic-unfetch";
 import { JSDOM } from "jsdom";
 import { DevpostHackathon, DevpostProject } from "../interfaces";
-import { DevpostProjectResponse } from '../interfaces/DevpostProjectResponse';
+import { DevpostProjectResponse } from "../interfaces/DevpostProjectResponse";
+import { DevpostHackathonResponse } from "../interfaces/DevpostHackathonResponse";
 
 /**
  * Parses out the Devpost username from a given devpost profile url
@@ -24,15 +25,19 @@ export const getUsernameFromUrl = (devpostUrl: string) => {
  * Returns a list of hackathon projects a user has created
  * @param devpostUsername Devpost user's username
  */
-export const getUsersProjects = async (devpostUsername: string): Promise<DevpostProjectResponse> => {
+export const getUsersProjects = async (
+  devpostUsername: string
+): Promise<DevpostProjectResponse> => {
   const res = await fetch(`https://devpost.com/${devpostUsername}`);
-  const projectsRes: DevpostProjectResponse = {projects: []};
-  
+  const projectsRes: DevpostProjectResponse = { projects: [] };
+
   if (!res.ok) {
     projectsRes.error = res.status;
+    projectsRes.ok = false;
     return projectsRes;
   }
 
+  projectsRes.ok = true;
   const projectPage = await res.text();
 
   const { document } = new JSDOM(projectPage).window;
@@ -56,16 +61,18 @@ export const getUsersProjects = async (devpostUsername: string): Promise<Devpost
   });
   projectsRes.projects = projects;
   return projectsRes;
-}
+};
 
 /**
  * Returns the hackathon a given user has signed up for
  * @param devpostUsername Devpost user's username
  * @param maxHackathons Limit the amount of hackathons that get returned
  */
-export const getUsersHackathons = async (devpostUsername: string) => {
+export const getUsersHackathons = async (
+  devpostUsername: string
+): Promise<DevpostHackathonResponse> => {
   let numPages = 1;
-  const hackathons: DevpostHackathon[] = [];
+  const hackathonsRes: DevpostHackathonResponse = { hackathons: [] };
 
   /**
    * Function to parse out DevpostHackathons and put it in the hackathons array (abusing closures!)
@@ -148,7 +155,7 @@ export const getUsersHackathons = async (devpostUsername: string) => {
         userWonPrize ||
         hackathonsSubmitted.includes(parseInt(devpostId || "0", 10));
 
-      hackathons.push({
+      hackathonsRes.hackathons.push({
         id: hackathonUrl.hostname, // hostname should be unique for each devpost hackathon
         title: hackathonTitle,
         link: hackathonLink,
@@ -161,6 +168,12 @@ export const getUsersHackathons = async (devpostUsername: string) => {
 
   // get the first page of hackathons
   const res = await fetch(`https://devpost.com/${devpostUsername}/challenges`);
+  if (!res.ok) {
+    hackathonsRes.error = res.status;
+    hackathonsRes.ok = false;
+    return hackathonsRes;
+  }
+  hackathonsRes.ok = true;
   const hackathonPage = await res.text();
 
   const { document } = new JSDOM(hackathonPage).window;
@@ -195,5 +208,5 @@ export const getUsersHackathons = async (devpostUsername: string) => {
   // wait for all pages to be parsed
   await Promise.all(promises);
 
-  return hackathons;
+  return hackathonsRes;
 };
