@@ -9,4 +9,8 @@ export interface DevpostProjectResponse {
    * Optional: Response status code
    */
   error?: number;
+  /**
+   * Optional: Response ok-ness
+   */
+  ok?: boolean;
 }

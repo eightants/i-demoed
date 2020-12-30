@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 import { getUsersProjects } from "../../../../functions/devpost";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -10,10 +10,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).send("");
 
   const userProjects = await getUsersProjects(devpostUsername);
-  
-  if (userProjects.error == 404) {
-    return res.status(404).send(`devpost user ${devpostUsername} not found.`)
+
+  if (userProjects.ok !== undefined && !userProjects.ok) {
+    let errorMessage: string;
+    switch (userProjects.error) {
+      case 404:
+        errorMessage = `devpost user ${devpostUsername} not found.`;
+        break;
+      default:
+        errorMessage = `ERROR ${userProjects.error}! something went wrong getting projects for ${devpostUsername}`;
+        break;
+    }
+    return res.status(userProjects.error).send(errorMessage);
   }
 
   return res.json(userProjects.projects);
-}
+};
