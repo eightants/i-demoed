@@ -12,6 +12,10 @@ https://idemoed.vercel.app/api/wall?username=<USERNAME>&limit=<LIMIT>&level=<LEV
 
 Just `https://idemoed.vercel.app/api/wall?username=<USERNAME>` is enough to generate a hex-tiled showcase based on a user's Devpost username. Detailed documentation on each query parameter can [be found on the website](https://idemoed.vercel.app).
 
+In Markdown: `![My Wall](https://idemoed.vercel.app/api/wall?username=<USERNAME>)`
+
+In HTML: `<img src="https://idemoed.vercel.app/api/wall?username=<USERNAME>"/>`
+
 ## Contributing
 
 I Demoed is a community project. Improving the service by submitting badges and improving features is appreciated. Want hackers to showcase your hackathon event badge or want to add past events you participated in? Start an issue or open a pull request to expand the badge database!

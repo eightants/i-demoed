@@ -13,11 +13,13 @@ import {
   calculateY,
   parseCustomEvents,
   parseDevpostEvents,
+  trackServiceCall,
 } from "../../../functions/common";
 import {
   ALT_BADGES,
   BADGE_SIZE,
   DEVPOST_BADGES,
+  DOMAIN,
   MAX_PER_ROW,
   WALL_MAX_AGE_SECONDS,
 } from "../../../functions/constants";
@@ -38,7 +40,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       pr = MAX_PER_ROW,
       size = BADGE_SIZE,
       level = "1",
-      limit = "100",
+      limit = "50",
       type = "svg",
       placeholder = "",
     },
@@ -53,6 +55,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const pathToBadges = path.join(process.cwd(), "public");
   const images = badgesFiles(DEVPOST_BADGES);
   const customImages = badgesFiles(ALT_BADGES);
+
+  const GA_TRACKING_ID = process.env.GA_TRACKING_ID || "";
+  if (GA_TRACKING_ID != "") {
+    await trackServiceCall(DOMAIN, "/api/wall", "Badge Wall", GA_TRACKING_ID);
+  }
 
   const devpostEvents = parseDevpostEvents(
     !username || Array.isArray(username)
