@@ -98,6 +98,17 @@ export default function Home() {
           <img className="w-full py-4 px-2" src={wallUrl} />
         </div>
       </section>
+      <section className="max-w-3xl mx-auto text-base sm:text-sm px-4">
+        {wallUrl ? (
+          <div>
+            In Markdown:{" "}
+            <CodeBlock>{`![My Wall](${DOMAIN + wallUrl})`}</CodeBlock>
+            In HTML: <CodeBlock>{`<img src="${DOMAIN + wallUrl}"/>`}</CodeBlock>
+          </div>
+        ) : (
+          ""
+        )}
+      </section>
       <section className="max-w-3xl mx-auto text-base sm:text-sm p-4">
         <h2 className="text-2xl leading-5 my-5 font-semibold">Usage</h2>
         <CodeBlock>{FULL_SERVICE_URL}</CodeBlock>

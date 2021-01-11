@@ -57,8 +57,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const customImages = badgesFiles(ALT_BADGES);
 
   const GA_TRACKING_ID = process.env.GA_TRACKING_ID || "";
+  const REQ_REFERRAL = req.headers.referer || "";
   if (GA_TRACKING_ID != "") {
-    await trackServiceCall(DOMAIN, "/api/wall", "Badge Wall", GA_TRACKING_ID);
+    await trackServiceCall(
+      DOMAIN,
+      "/api/wall",
+      "Badge Wall",
+      REQ_REFERRAL,
+      GA_TRACKING_ID
+    );
   }
 
   const devpostEvents = parseDevpostEvents(

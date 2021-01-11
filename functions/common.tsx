@@ -41,13 +41,14 @@ export const trackServiceCall = async (
   doc_home,
   doc_path,
   doc_title,
+  referral,
   tracking_id
 ) => {
   return await fetch(
     `http://www.google-analytics.com/collect?v=1&tid=${tracking_id}&cid=555&t=pageview&dh=${encodeURIComponent(
       doc_home
-    )}&dp=${encodeURIComponent(doc_path)}&dt=${encodeURIComponent(
-      doc_title
-    )}&ua=${encodeURIComponent("Mozilla/5.0")}&z=${Date.now()}`
+    )}&dp=${encodeURIComponent(doc_path)}&dt=${encodeURIComponent(doc_title)}${
+      referral == "" ? "" : "&dr=" + encodeURIComponent(referral)
+    }&ua=${encodeURIComponent("Mozilla/5.0")}&z=${Date.now()}`
   );
 };
