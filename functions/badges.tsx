@@ -72,7 +72,7 @@ export async function generateSvgBadgeFromImage(url, ind, x, y, badge_size) {
   const img = await toDataURL(url);
   return `<g transform="translate(${x},${y})"><g transform="scale(${
     badge_size / 300
-  })"><svg id="image-fill" xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="300" preserveAspectRatio="true" xmlns:xlink="http://www.w3.org/1999/xlink"><defs>
+  })"><svg id="image-fill" xmlns="http://www.w3.org/2000/svg" version="1.1" width="300" height="300" xmlns:xlink="http://www.w3.org/1999/xlink"><defs>
   <pattern id="image-bg-${ind}" x="20" y="20" height="300" width="300" patternUnits="userSpaceOnUse">
     <image width="260" height="260" href="${
       BASE64_PNG_ENCODE_STRING + img

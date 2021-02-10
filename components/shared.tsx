@@ -333,7 +333,7 @@ export const badge20 = ({
       height="80px"
       viewBox="0 0 276.21 72.55"
       x="50"
-      y="100"
+      y="84"
     >
       <g id="Layer_2" data-name="Layer 2">
         <g id="Layer_1-2" data-name="Layer 1" fill={textColor}>
@@ -347,7 +347,7 @@ export const badge20 = ({
         </g>
       </g>
     </svg>
-    <image width="200" height="60" x="50" y="172" xlinkHref={logo}></image>
+    <image width="200" height="68" x="50" y="164" xlinkHref={logo}></image>
   </svg>
 );
 
