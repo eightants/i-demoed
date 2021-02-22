@@ -80,7 +80,7 @@ export async function generateSvgBadgeFromImage(url, ind, x, y, badge_size) {
  </pattern>
 </defs>
 <polygon class="hex" points="150,300 280,225 280,75 150,0 20,75 20,225" fill="#333333"></polygon>
-<polygon class="hex" points="150,280 260,215 260,85 150,20 40,85 40,215" fill="url('#image-bg-${ind}')"></polygon>
+<polygon class="hex" points="150,284 264,217 264,83 150,16 36,83 36,217" fill="url('#image-bg-${ind}')"></polygon>
 </svg></g></g>`;
 }
 
