@@ -146,9 +146,9 @@ export default function Home() {
           <p className="flex-grow">
             Comma-separated list of event names to add to the wall. Names
             correlate to the name of the image file in{" "}
-            <CodeString>badges/</CodeString>. Add {'"hdb_"'} before the name of
-            the badge if referring to the <CodeString>badges/alt/</CodeString>{" "}
-            directory.
+            <CodeString>badges/devpost/</CodeString>. Add {'"hdb_"'} before the
+            name of the badge if referring to the{" "}
+            <CodeString>badges/alt/</CodeString> directory.
             <br />
             <strong>Examples:</strong>
             <br />
