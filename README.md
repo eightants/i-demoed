@@ -2,7 +2,7 @@
 
 [I Demoed](https://idemoed.vercel.app) is a hackathon badge showcase service in SVG and raster format, which can easily be included in GitHub readmes or any other webpage. The service supports badge generation from a user's Devpost activity and custom specified badges. With the prevalence of virtual hackathons, this service provides a way for the hackathon community to continue collecting the hexagon "I Demoed" stickers prominent in MLH events.
 
-![Demo](public/images/wall.svg)
+![Demo](public/wall.svg)
 
 ## Quickstart
 
