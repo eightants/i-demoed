@@ -1,6 +1,9 @@
 <h3 align="center"><img src="public/images/idemoed-frame.png" width="500px" alt="I Demoed"></h3>
 
-[I Demoed](https://idemoed.vercel.app) is a hackathon badge showcase service in SVG and raster format, which can easily be included in GitHub readmes or any other webpage. The service supports badge generation from a user's Devpost activity and custom specified badges. With the prevalence of virtual hackathons, this service provides a way for the hackathon community to continue collecting the hexagon "I Demoed" stickers prominent in MLH events.
+> I Demoed was sunsetted on December 12, 2024. The repository continues to be available for access to the sticker and code archives. You can fork the Github repository and host your website yourself.
+> I Demoed had about 1K lifetime users, with the majority being from the USA, India, and Canada. 
+
+[I Demoed](https://idemoed.viewodyssey.com) is a hackathon badge showcase service in SVG and raster format, which can easily be included in GitHub readmes or any other webpage. The service supports badge generation from a user's Devpost activity and custom specified badges. With the prevalence of virtual hackathons, this service provides a way for the hackathon community to continue collecting the hexagon "I Demoed" stickers prominent in MLH events.
 
 ![Demo](public/wall.svg)
 
@@ -10,7 +13,7 @@
 https://idemoed.vercel.app/api/wall?username=<USERNAME>&limit=<LIMIT>&level=<LEVEL>&events=<EVENTS>&pr=<PR>&size=<SIZE>&type=<TYPE>&placeholder=<PLACEHOLDER>
 ```
 
-Just `https://idemoed.vercel.app/api/wall?username=<USERNAME>` is enough to generate a hex-tiled showcase based on a user's Devpost username. Detailed documentation on each query parameter can [be found on the website](https://idemoed.vercel.app).
+Just `https://idemoed.vercel.app/api/wall?username=<USERNAME>` is enough to generate a hex-tiled showcase based on a user's Devpost username. Detailed documentation on each query parameter can [be found on the website](https://idemoed.viewodyssey.com).
 
 In Markdown: `![My Wall](https://idemoed.vercel.app/api/wall?username=<USERNAME>)`
 
